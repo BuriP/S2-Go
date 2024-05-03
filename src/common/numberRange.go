@@ -3,25 +3,21 @@ package common
 import (
 	"fmt"
 	"errors"
-	"../generated"
+	"S2-Go/src/generated"
 )
 
-// NumberRange represents a number range
-type NumberRange struct {
-	StartOfRange float64
-	EndOfRange   float64
-}
+
 
 // NewNumberRange creates a new NumberRange instance
-func NewNumberRange(start, end float64) *NumberRange {
-	return &NumberRange{
+func NewNumberRange(start, end float64) *generated.NumberRange {
+	return &generated.NumberRange{
 		StartOfRange: start,
 		EndOfRange:   end,
 	}
 }
 
 // ValidateStartEndOrder validates the order of start and end values
-func (nr *NumberRange) ValidateStartEndOrder() error {
+func (nr *generated.NumberRange) ValidateStartEndOrder() error {
 	if nr.StartOfRange > nr.EndOfRange {
 		return errors.New("start_of_range should not be higher than end_of_range")
 	}
@@ -29,12 +25,12 @@ func (nr *NumberRange) ValidateStartEndOrder() error {
 }
 
 // Hash calculates the hash of the NumberRange instance
-func (nr *NumberRange) Hash() string {
+func (nr *generated.NumberRange) Hash() string {
 	return fmt.Sprintf("%f|%f", nr.StartOfRange, nr.EndOfRange)
 }
 
 // Equals checks if two NumberRange instances are equal
-func (nr *NumberRange) Equals(other *NumberRange) bool {
+func (nr *generated.NumberRange) Equals(other *generated.NumberRange) bool {
 	if other == nil {
 		return false
 	}

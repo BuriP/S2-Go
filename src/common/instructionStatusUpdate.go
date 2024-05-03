@@ -1,7 +1,7 @@
 package common
 
 import (
-	"../generated"
+	"S2-Go/src/generated"
 	"github.com/google/uuid"
 )
 

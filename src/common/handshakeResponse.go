@@ -1,9 +1,7 @@
 package common
 
 import (
-	"fmt"
-	"github.com/google/uuid"
-	"../generated"
+	"S2-Go/src/generated"
 )
 
 func NewHandshakeResponse() *generated.HandshakeResponse {

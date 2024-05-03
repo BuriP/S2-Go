@@ -2,30 +2,21 @@ package common
 
 import (
 
-	"../generated"
+	"S2-Go/src/generated"
 	"github.com/google/uuid"
 )
 
-
+// NewHandshake created a new Handshake instance.
 func NewHandshake() *generated.Handshake {
 	return &generated.Handshake{}
 }
 
-func (h *generated.Handshake) ValidateAssignment() bool {
-	return true
+
+func SetMessageID(h *generated.Handshake) {
+	// Generating a new UUID
+	newUUID := uuid.New()
+
+	// Assigning the new UUID to the MessageId field.
+	h.MessageID = generated.ID(newUUID.String())
 }
 
-func (h *generated.Handshake) MessageID() uuid.UUID {
-	return uuid.New()
-}
-
-func main() {
-	// Sample usage
-	handshake := NewHandshake()
-	messageID := handshake.MessageID()
-	println("Message ID:", messageID.String())
-
-	// Validate assignment
-	validateAssignment := handshake.ValidateAssignment()
-	println("Validate Assignment:", validateAssignment)
-}
