@@ -1,9 +1,9 @@
-// Code may need changes still!.
-
 package generated
 
 import (
 	"regexp"
+
+	"github.com/google/uuid"
 )
 
 type ID string
@@ -14,3 +14,7 @@ func (id ID) Validate() bool {
 	return pattern.MatchString(string(id))
 }
 
+// IDFromString converts a string into an ID.
+func IDFromString(s string) ID {
+	return ID(s)
+}
