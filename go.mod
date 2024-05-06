@@ -1,4 +1,4 @@
-module S2-Go
+module github.com/BuriP/S2-Go
 
 go 1.22.1
 

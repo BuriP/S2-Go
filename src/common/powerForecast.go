@@ -1,7 +1,7 @@
 package common
 
 import (
-	"S2-Go/src/generated"
+	"github.com/BuriP/S2-Go/src/generated"
 
 	
 )

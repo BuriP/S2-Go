@@ -3,8 +3,7 @@ package common
 import (
 	"fmt"
 	"errors"
-	"S2-Go/src/generated"
-)
+	"github.com/BuriP/S2-Go/src/generated")
 
 
 

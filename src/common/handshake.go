@@ -4,7 +4,6 @@ import (
 
 	"github.com/BuriP/S2-Go/src/generated"
 	"github.com/google/uuid"
-	"S2-Go/src/generated"
 )
 
 // Handshake represents a handshake message.
@@ -16,12 +15,12 @@ type Handshake struct {
 }
 
 // NewHandshake creates a new Handshake instance.
-func NewHandshake(id *generated.ID, t string, r *generated.EnergyManagementRole, protocol []string) *Handshake {
+func NewHandshake(id *generated.ID, t string, r *generated.EnergyManagementRole, protocol *Handshake) *Handshake {
 	return &Handshake{
 		MessageID : id,
 		MessageType: t,
-		Role: r,
-		SupportedProtocolVersions : protocol,
+		Role: r, // requires &generated.CEM for example
+		SupportedProtocolVersions : protocol.SupportedProtocolVersions, 
 	}
 }
 
@@ -42,10 +41,10 @@ func NewVarHandshake(ids []*generated.ID, types []string, roles []*generated.Ene
 // SetMessageID sets a new MessageId in the Handshake
 func (h *Handshake) SetMessageID() *Handshake{
 	// Generating new UUID
-	newUUID := uuid.New()
-
-	//Converting the UUID to a string
-	id:= *generated.IDFromString(newUUID.String())
+	newUUID := uuid.New().String()
+  
+	// Converting the UUID into an ID type
+	id := generated.IDFromString(newUUID)
 
 	// Asigning the new UUID to the MessageID filed
 	 h.MessageID = id
