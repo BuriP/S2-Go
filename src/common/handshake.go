@@ -15,13 +15,18 @@ type Handshake struct {
 }
 
 // NewHandshake creates a new Handshake instance.
-func NewHandshake(id *generated.ID, t string, r *generated.EnergyManagementRole, protocol *Handshake) *Handshake {
+func NewHandshake(messageid string, t string, r *generated.EnergyManagementRole, protocol *Handshake) (*Handshake, error) {
+	//Transforming the id string to UUID
+	id, err := generated.NewID(messageid)
+	if err!= nil{
+		return nil, err
+	}
 	return &Handshake{
 		MessageID : id,
 		MessageType: t,
 		Role: r, // requires &generated.CEM for example
 		SupportedProtocolVersions : protocol.SupportedProtocolVersions, 
-	}
+	}, nil
 }
 
 // NewVarHandshake creates new n number of instances of Handshakes.
@@ -39,17 +44,17 @@ func NewVarHandshake(ids []*generated.ID, types []string, roles []*generated.Ene
 }
 
 // SetMessageID sets a new MessageId in the Handshake
-func (h *Handshake) SetMessageID() *Handshake{
+func (h *Handshake) SetMessageID() *Handshake {
 	// Generating new UUID
 	newUUID := uuid.New().String()
   
 	// Converting the UUID into an ID type
-	id := generated.IDFromString(newUUID)
+	id, _  := generated.NewID(newUUID)
 
 	// Asigning the new UUID to the MessageID filed
 	 h.MessageID = id
 
-	return h // Returns back the  modified Handshake instance
+	return h// Returns back the  modified Handshake instance
 }
 
 // SetSupportedProtocolVersions set the protocol versions in the Handshake

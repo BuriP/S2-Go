@@ -5,7 +5,6 @@ This defines the Duration type
 package common
 import (
 	"time"
-
 )
 
 type Duration struct {

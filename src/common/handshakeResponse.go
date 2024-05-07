@@ -21,11 +21,9 @@ func NewHandshakeResponse(id *generated.ID, t string, handshake *Handshake) *Han
 	}
 }
 
-// 
-func GetSelectedProtocolVersionsResponse(s string) *HandshakeResponse.SelectedProtocolVersion{
-	return &HandshakeResponse{
-		SelectedProtocolVersion : s,
-	}
+// GetSelectedProtocolVersionsResponse retuns a slice of the protocol versions defined in the HandshakeResponse
+func (h *HandshakeResponse) GetSelectedProtocolVersionsResponse() *[]string {
+	return h.SelectedProtocolVersion
 }
 
 
