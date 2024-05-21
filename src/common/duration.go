@@ -1,8 +1,9 @@
 /*
 This defines the Duration type
 */
-        
+
 package common
+
 import (
 	"time"
 )
@@ -11,15 +12,15 @@ type Duration struct {
 	Milliseconds uint64 `json:"millisecons" description:"Duration in milliseconds"`
 }
 
-// NewDuration creates a new Duration // ToDO test for the 
-func NewDuration(d uint64) *Duration{
+// NewDuration creates a new Duration // ToDO test for the
+func NewDuration(d uint64) *Duration {
 	return &Duration{
-		Milliseconds : d,
+		Milliseconds: d,
 	}
 }
 
 // ModifyDuration changes the duration of a Duration instance.
-func(d * Duration) ModifyDuration(newdur uint64) *Duration {
+func (d *Duration) ModifyDuration(newdur uint64) *Duration {
 	d.Milliseconds = newdur
 	return d //Returns the instance modified
 }
@@ -36,7 +37,7 @@ func NewVarDuration(n uint64, milliseconds []uint64) []*Duration {
 // ToTimedelta converts Duration to time.Duration
 func (d *Duration) ToTimedelta() time.Duration {
 	return time.Duration(d.Milliseconds)
-		}
+}
 
 // FromTimedelta creates a new Duration from time.Duration
 func FromTimedelta(duration time.Duration) *Duration {
@@ -44,9 +45,9 @@ func FromTimedelta(duration time.Duration) *Duration {
 		Milliseconds: uint64(duration.Milliseconds()),
 	}
 }
-	
+
 // FromMilliseconds creates a new Duration from milliseconds
-func FromMilliseconds(time uint64) *Duration{
+func FromMilliseconds(time uint64) *Duration {
 	return &Duration{
 		Milliseconds: time,
 	}

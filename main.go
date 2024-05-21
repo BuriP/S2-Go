@@ -5,9 +5,10 @@ import (
 
 	"github.com/BuriP/S2-Go/src/generated"
 
-	"github.com/BuriP/S2-Go/test"
+	"github.com/BuriP/S2-Go/tests"
 )
 
-func main(){
+func main() {
 
 }
+

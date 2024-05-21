@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/BuriP/S2-Go/src/common" 
+	"github.com/BuriP/S2-Go/src/common"
 )
 
 func TestDuration(t *testing.T) {
