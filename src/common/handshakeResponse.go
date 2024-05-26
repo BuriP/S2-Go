@@ -1,6 +1,7 @@
 package common
 
 import (
+	"errors"
 	"github.com/BuriP/S2-Go/src/generated"
 )
 
@@ -11,20 +12,28 @@ type HandshakeResponse struct {
 	SelectedProtocolVersion *[]string     `json:"selected_protocol_version" description:"The protocol version the CEM selected for this session"`
 }
 
-// NewHandshakeResponse creeates a new instance of the HandshakeResponse.
+// NewHandshakeResponse creates a new instance of the HandshakeResponse.
 func NewHandshakeResponse(handshake *Handshake) (*HandshakeResponse, error) {
+	if handshake == nil {
+		return nil, errors.New("handshake is required")
+	}
+	if handshake.SupportedProtocolVersions == nil {
+		return nil, errors.New("supported protocol versions are required in the handshake")
+	}
+
 	newID, err := generated.NewID()
 	if err != nil {
 		return nil, err
 	}
-	return &HandshakeResponse{ // returns a pointer with the new handshake response
+
+	return &HandshakeResponse{
 		MessageID:               newID,
 		MessageType:             "HandshakeResponse",
 		SelectedProtocolVersion: handshake.SupportedProtocolVersions,
 	}, nil
 }
 
-// GetSelectedProtocolVersionsResponse retuns a slice of the protocol versions defined in the HandshakeResponse
-func (h *HandshakeResponse) GetSelectedProtocolVersionsResponse() *[]string {
+// GetSelectedProtocolVersions returns a slice of the protocol versions defined in the HandshakeResponse.
+func (h *HandshakeResponse) GetSelectedProtocolVersions() *[]string {
 	return h.SelectedProtocolVersion
 }

@@ -1,6 +1,8 @@
 package common
 
 import (
+	"errors"
+
 	"github.com/BuriP/S2-Go/src/generated"
 )
 
@@ -12,21 +14,20 @@ type RevokeObject struct {
 }
 
 // NewRevokeObject crewates a new instance of the RevokeObject and an error
-func NewRevokeObject(messageID string, objectID *generated.ID, messageType string, objectType generated.RevokableObject) (*RevokeObject, error) {
-	messageIDValue, err := generated.NewID()
-	if err != nil {
-		return nil, err
+func NewRevokeObject(objectID *generated.ID, objectType generated.RevokableObject) (*RevokeObject, error) {
+	if objectID == nil {
+		return nil, errors.New("Object is required")
 	}
 
+	messageIDValue, err := generated.NewID()
 	if err != nil {
 		return nil, err
 	}
 
 	return &RevokeObject{
 		MessageID:   messageIDValue,
-		MessageType: messageType,
+		MessageType: "Revoke Object",
 		ObjectID:    objectID,
 		ObjectType:  objectType,
 	}, nil
 }
-

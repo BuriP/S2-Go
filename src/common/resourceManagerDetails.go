@@ -1,6 +1,7 @@
 package common
 
 import (
+	"errors"
 	"github.com/BuriP/S2-Go/src/generated"
 )
 
@@ -17,11 +18,11 @@ type ResourceManagerDetails struct {
 	ProvidesForecast             bool                          `json:"provides_forecast" description:"Indicates whether the ResourceManager is able to provide PowerForecasts"`
 	ProvidesPowerMeasurementType []generated.CommodityQuantity `json:"provides_power_measurement_types" description:"Array of all CommodityQuantities that this Resource Manager can provide measurements for." min_items:"1" max_items:"10"`
 	ResourceID                   *generated.ID                 `json:"resource_id" description:"Identifier of the Resource Manager. Must be unique within the scope of the CEM."`
-	Roles                        []*generated.Role             `json:"roles" description:"Each Resource Manager provides one or more energy Roles" min_items:"1" max_items:"3"`
+	Roles                        []*Role                       `json:"roles" description:"Each Resource Manager provides one or more energy Roles" min_items:"1" max_items:"3"`
 	SerialNumber                 *string                       `json:"serial_number,omitempty" description:"Serial number of the device (provided by the manufacturer)"`
 }
 
-// NewReosurceManager creates an instance of the Resource Manager Details // Check correct implementation of pointers here
+// NewResourceManagerDetails creates a new ResourceManagerDetails instance and returns an error if validation fails
 func NewResourceManagerDetails(
 	availableControlTypes []generated.ControlType,
 	currency generated.Currency,
@@ -30,17 +31,42 @@ func NewResourceManagerDetails(
 	providesForecast bool,
 	providesPowerMeasurementType []generated.CommodityQuantity,
 	resourceID *generated.ID,
-	roles []*generated.Role,
+	roles []*Role,
+
 	serialNumber string,
-) *ResourceManagerDetails {
-	newid, _ := generated.NewID()
+) (*ResourceManagerDetails, error) {
+	if len(availableControlTypes) < 1 || len(availableControlTypes) > 5 {
+		return nil, errors.New("availableControlTypes must contain between 1 and 5 items")
+	}
+
+	if len(providesPowerMeasurementType) < 1 || len(providesPowerMeasurementType) > 10 {
+		return nil, errors.New("providesPowerMeasurementType must contain between 1 and 10 items")
+	}
+
+	if len(roles) < 1 || len(roles) > 3 {
+		return nil, errors.New("roles must contain between 1 and 3 items")
+	}
+
+	if instructionProcessingDelay == nil {
+		return nil, errors.New("instructionProcessingDelay is required")
+	}
+
+	if resourceID == nil {
+		return nil, errors.New("resourceID is required")
+	}
+
+	messageID, err := generated.NewID()
+	if err != nil {
+		return nil, err
+	}
+
 	return &ResourceManagerDetails{
 		AvailableControlTypes:        availableControlTypes,
 		Currency:                     currency,
 		FirmwareVersion:              &firmwareVersion,
 		InstructionProcessingDelay:   instructionProcessingDelay,
 		Manufacturer:                 &manufacturer,
-		MessageID:                    newid, // should it be unique?
+		MessageID:                    messageID,
 		MessageType:                  "ResourceManagerDetails",
 		Model:                        &model,
 		Name:                         &name,
@@ -49,6 +75,5 @@ func NewResourceManagerDetails(
 		ResourceID:                   resourceID,
 		Roles:                        roles,
 		SerialNumber:                 &serialNumber,
-	}
+	}, nil
 }
-

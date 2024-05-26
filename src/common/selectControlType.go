@@ -2,7 +2,6 @@ package common
 
 import (
 	"github.com/BuriP/S2-Go/src/generated"
-	"github.com/google/uuid"
 )
 
 type SelectControlType struct {
@@ -12,7 +11,7 @@ type SelectControlType struct {
 }
 
 // NewSelectControlType creates a new instance of SelectControlType.
-func NewSelectControlType(controlType generated.ControlType, messageID uuid.UUID, messageType string) (*SelectControlType, error) {
+func NewSelectControlType(controlType generated.ControlType) (*SelectControlType, error) {
 	id, err := generated.NewID()
 	if err != nil {
 		return nil, err
@@ -20,7 +19,6 @@ func NewSelectControlType(controlType generated.ControlType, messageID uuid.UUID
 	return &SelectControlType{
 		ControlType: controlType,
 		MessageID:   id,
-		MessageType: messageType,
+		MessageType: "Select Control Type",
 	}, nil
 }
-

@@ -3,7 +3,6 @@ package common
 import (
 	"errors"
 	"fmt"
-	"github.com/BuriP/S2-Go/src/generated"
 )
 
 type NumberRange struct {
@@ -36,7 +35,7 @@ func (nr *NumberRange) Hash() string {
 }
 
 // Equals checks if two NumberRange instances are equal
-func (nr *NumberRange) Equals(other *generated.NumberRange) bool {
+func (nr *NumberRange) Equals(other *NumberRange) bool {
 	if other == nil {
 		return false
 	}
