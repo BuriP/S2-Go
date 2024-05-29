@@ -59,7 +59,6 @@ func TestFRBCLeakageBehaviourElementMethods(t *testing.T) {
 
 	// Test GetLeakageRate method
 	if element.GetLeakageRate() != leakageRate {
-		t.Errorf("expected leakage rate %v, got %v", leakageRate, element.GetLeakageRate)
+		t.Errorf("expected leakage rate %v, got %v", leakageRate, element.GetLeakageRate())
 	}
 }
-

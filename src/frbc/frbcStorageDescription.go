@@ -30,3 +30,33 @@ func NewFRBCStorageDescription(fillLevelRange *common.NumberRange, providesFillL
 		ProvidesUsageForecast:          providesUsageForecast,
 	}, nil
 }
+
+// GetDiagnosticLabel returns the diagnostic label of the storage description.
+func (sd *FRBCStorageDescription) GetDiagnosticLabel() *string {
+	return sd.DiagnosticLabel
+}
+
+// GetFillLevelLabel returns the fill level label of the storage description.
+func (sd *FRBCStorageDescription) GetFillLevelLabel() *string {
+	return sd.FillLevelLabel
+}
+
+// GetFillLevelRange returns the fill level range of the storage description.
+func (sd *FRBCStorageDescription) GetFillLevelRange() *common.NumberRange {
+	return sd.FillLevelRange
+}
+
+// GetProvidesFillLevelTargetProfile returns whether the storage provides a fill level target profile.
+func (sd *FRBCStorageDescription) GetProvidesFillLevelTargetProfile() bool {
+	return sd.ProvidesFillLevelTargetProfile
+}
+
+// GetProvidesLeakageBehaviour returns whether the storage provides details of power leakage behaviour.
+func (sd *FRBCStorageDescription) GetProvidesLeakageBehaviour() bool {
+	return sd.ProvidesLeakageBehaviour
+}
+
+// GetProvidesUsageForecast returns whether the storage provides a usage forecast.
+func (sd *FRBCStorageDescription) GetProvidesUsageForecast() bool {
+	return sd.ProvidesUsageForecast
+}

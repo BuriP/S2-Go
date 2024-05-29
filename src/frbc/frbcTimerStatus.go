@@ -18,8 +18,8 @@ type FRBCTimerStatus struct {
 }
 
 // NewFRBCTimerStatus creates a new instance of FRBCTimerStatus.
-func NewFRBCTimerStatus(actuator *common.Actuator, timer *common.Timer, finishedAt time.Time) (*FRBCTimerStatus, error) {
-	if actuator == nil || actuator.ID == nil {
+func NewFRBCTimerStatus(actuator *generated.ID, timer *common.Timer, finishedAt time.Time) (*FRBCTimerStatus, error) {
+	if actuator == nil || actuator.Value == "" {
 		return nil, errors.New("actuator and actuator ID are required")
 	}
 	if timer == nil || timer.ID == nil {
@@ -32,7 +32,7 @@ func NewFRBCTimerStatus(actuator *common.Actuator, timer *common.Timer, finished
 	}
 
 	return &FRBCTimerStatus{
-		ActuatorID:  actuator.ID,
+		ActuatorID:  actuator,
 		FinishedAt:  finishedAt,
 		MessageID:   messageID,
 		MessageType: "FRBC.TimerStatus",

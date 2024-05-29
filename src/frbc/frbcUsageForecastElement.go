@@ -3,7 +3,6 @@ package frbc
 import (
 	"errors"
 	"github.com/BuriP/S2-Go/src/common"
-	"github.com/BuriP/S2-Go/src/generated"
 )
 
 // FRBCUsageForecastElement represents an element of FRBC usage forecast.

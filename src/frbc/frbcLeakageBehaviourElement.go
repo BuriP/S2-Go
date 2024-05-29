@@ -18,6 +18,10 @@ func NewFRBCLeakageBehaviourElement(fillLevelRange *common.NumberRange, leakageR
 		return nil, errors.New("fill level range must be provided")
 	}
 
+	if leakageRate == 0 {
+		return nil, errors.New("leakage rate should not be 0")
+	}
+
 	return &FRBCLeakageBehaviourElement{
 		FillLevelRange: fillLevelRange,
 		LeakageRate:    leakageRate,

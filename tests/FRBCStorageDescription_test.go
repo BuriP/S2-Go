@@ -43,7 +43,7 @@ func TestNewFRBCStorageDescription(t *testing.T) {
 
 	// Test creation with nil fillLevelRange
 	_, err = frbc.NewFRBCStorageDescription(nil, true, true, true, &diagnosticLabel, &fillLevelLabel)
-	if err != nil {
+	if err == nil {
 		t.Fatalf("expected error for nil fillLevelRange, got nil")
 	}
 }
