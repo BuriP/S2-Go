@@ -1,9 +1,11 @@
 package frbc
 
 import (
+	"errors"
+	"time"
+
 	"github.com/BuriP/S2-Go/src/common"
 	"github.com/BuriP/S2-Go/src/generated"
-	"time"
 )
 
 // FRBCTimerStatus represents the status of FRBC timer.
@@ -13,4 +15,27 @@ type FRBCTimerStatus struct {
 	MessageID   *generated.ID `json:"message_id" description:"ID of this message"`
 	MessageType string        `json:"message_type" description:"FRBC.TimerStatus"`
 	TimerID     *generated.ID `json:"timer_id" description:"The ID of the timer this message refers to"`
+}
+
+// NewFRBCTimerStatus creates a new instance of FRBCTimerStatus.
+func NewFRBCTimerStatus(actuator *common.Actuator, timer *common.Timer, finishedAt time.Time) (*FRBCTimerStatus, error) {
+	if actuator == nil || actuator.ID == nil {
+		return nil, errors.New("actuator and actuator ID are required")
+	}
+	if timer == nil || timer.ID == nil {
+		return nil, errors.New("timer and timer ID are required")
+	}
+
+	messageID, err := generated.NewID()
+	if err != nil {
+		return nil, err
+	}
+
+	return &FRBCTimerStatus{
+		ActuatorID:  actuator.ID,
+		FinishedAt:  finishedAt,
+		MessageID:   messageID,
+		MessageType: "FRBC.TimerStatus",
+		TimerID:     timer.ID,
+	}, nil
 }
