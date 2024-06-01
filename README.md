@@ -7,7 +7,7 @@ This is a [Go](http://golang.org/) package that implements the message validatio
 
 ### Documentation 
 
-* [API Refence](https://pkg.go.dev/badge/github.com/BuriP/S2-Go.svg)(https://pkg.go.dev/github.com/BuriP/S2-Go)
+* [API Refence](https://pkg.go.dev/github.com/BuriP/S2-Go)
 * [HandShake Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleHandshake.go)
 * [HandshakeResponse Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleHandshakeResponse.go)
 * [PowerForecast Example](https://github.com/BuriP/S2-Go/blob/main/examples/examplePowerForecast.go)
