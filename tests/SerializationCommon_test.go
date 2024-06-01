@@ -82,11 +82,11 @@ func TestInstructionStatusUpdateSerialization(t *testing.T) {
 func TestPowerForecastSerialization(t *testing.T) {
 	pfv1, _ := common.NewPowerForecastValue(generated.ELECTRIC_POWER_L1, 100.0)
 	duration := common.NewDuration(3600) // 1 hour
-	element, _ := common.NewPowerForecastElement(duration, &[]common.PowerForecastValue{*pfv1})
-	elements := []common.PowerForecastElement{*element}
+	element, _ := common.NewPowerForecastElement(duration, []*common.PowerForecastValue{pfv1})
+	elements := []*common.PowerForecastElement{element}
 	startTime := time.Now().Unix()
 
-	pf, err := common.NewPowerForecast(&elements, startTime)
+	pf, err := common.NewPowerForecast(elements, startTime)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -102,8 +102,8 @@ func TestPowerForecastSerialization(t *testing.T) {
 		t.Fatalf("expected no error, got %v", err)
 	}
 
-	if len(*deserializedPF.Elements) != len(elements) {
-		t.Errorf("expected %d elements, got %d", len(elements), len(*deserializedPF.Elements))
+	if len(deserializedPF.Elements) != len(elements) {
+		t.Errorf("expected %d elements, got %d", len(elements), len(deserializedPF.Elements))
 	}
 }
 
@@ -279,4 +279,3 @@ func TestSessionRequestSerialization(t *testing.T) {
 		t.Errorf("expected diagnostic label %v, got %v", diagnosticLabel, deserializedSessionRequest.DiagnosticLabel)
 	}
 }
-

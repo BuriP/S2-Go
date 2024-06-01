@@ -20,10 +20,10 @@ func TestNewPowerForecastElement(t *testing.T) {
 		t.Fatalf("expected no error, got %v", err)
 	}
 
-	powerValues := []common.PowerForecastValue{*pfv1, *pfv2}
+	powerValues := []*common.PowerForecastValue{pfv1, pfv2}
 
 	// Test valid PowerForecastElement creation
-	pfe, err := common.NewPowerForecastElement(duration, &powerValues)
+	pfe, err := common.NewPowerForecastElement(duration, powerValues)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -31,18 +31,18 @@ func TestNewPowerForecastElement(t *testing.T) {
 	if pfe.Duration == nil || pfe.Duration.Milliseconds != duration.Milliseconds {
 		t.Errorf("expected Duration %v, got %v", duration, pfe.Duration)
 	}
-	if pfe.PowerValues == nil || len(*pfe.PowerValues) != len(powerValues) {
-		t.Errorf("expected %d power values, got %d", len(powerValues), len(*pfe.PowerValues))
+	if pfe.PowerValues == nil || len(pfe.PowerValues) != len(powerValues) {
+		t.Errorf("expected %d power values, got %d", len(powerValues), len(pfe.PowerValues))
 	}
 
 	// Test creation with nil duration
-	_, err = common.NewPowerForecastElement(nil, &powerValues)
+	_, err = common.NewPowerForecastElement(nil, powerValues)
 	if err == nil {
 		t.Fatalf("expected error for nil duration, got nil")
 	}
 
 	// Test creation with empty power values
-	_, err = common.NewPowerForecastElement(duration, &[]common.PowerForecastValue{})
+	_, err = common.NewPowerForecastElement(duration, []*common.PowerForecastValue{})
 	if err == nil {
 		t.Fatalf("expected error for empty power values, got nil")
 	}
