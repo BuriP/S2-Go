@@ -1,3 +1,6 @@
+![S2-GoLogo](https://github.com/BuriP/S2-Go/assets/162050455/c32d02ce-8321-4c21-8712-e07112a3d8a1)
+
+
 # S2-Go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/BuriP/S2-Go.svg)](https://pkg.go.dev/github.com/BuriP/S2-Go)
