@@ -16,7 +16,7 @@ func TestNewReceptionStatus(t *testing.T) {
 	diagnosticLabel := "TestLabel"
 
 	// Test valid ReceptionStatus creation
-	rs, err := common.NewReceptionStatus(&statusValue, subjectMessageID, &diagnosticLabel)
+	rs, err := common.NewReceptionStatus(statusValue, subjectMessageID, &diagnosticLabel)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -24,7 +24,7 @@ func TestNewReceptionStatus(t *testing.T) {
 	if rs.MessageType != "ReceptionStatus" {
 		t.Errorf("expected MessageType ReceptionStatus, got %v", rs.MessageType)
 	}
-	if rs.Status == nil || *rs.Status != statusValue {
+	if rs.Status == "" || rs.Status != statusValue {
 		t.Errorf("expected Status %v, got %v", statusValue, rs.Status)
 	}
 	if rs.SubjectMessageID == nil || rs.SubjectMessageID.Value != subjectMessageID.Value {
@@ -35,19 +35,19 @@ func TestNewReceptionStatus(t *testing.T) {
 	}
 
 	// Test creation with nil status
-	_, err = common.NewReceptionStatus(nil, subjectMessageID, &diagnosticLabel)
+	_, err = common.NewReceptionStatus("", subjectMessageID, &diagnosticLabel)
 	if err == nil {
 		t.Fatalf("expected error for nil status, got nil")
 	}
 
 	// Test creation with nil subjectMessageID
-	_, err = common.NewReceptionStatus(&statusValue, nil, &diagnosticLabel)
+	_, err = common.NewReceptionStatus(statusValue, nil, &diagnosticLabel)
 	if err == nil {
 		t.Fatalf("expected error for nil subjectMessageID, got nil")
 	}
 
 	// Test creation without DiagnosticLabel
-	rs, err = common.NewReceptionStatus(&statusValue, subjectMessageID, nil)
+	rs, err = common.NewReceptionStatus(statusValue, subjectMessageID, nil)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}

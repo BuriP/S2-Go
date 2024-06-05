@@ -8,8 +8,8 @@ import (
 
 	"github.com/BuriP/S2-Go/src/common"
 	"github.com/BuriP/S2-Go/src/generated"
-	"github.com/BuriP/S2-Go/websockets/S2client"
-	"github.com/BuriP/S2-Go/websockets/S2server"
+	"github.com/BuriP/S2-Go/websockets/s2client"
+	"github.com/BuriP/S2-Go/websockets/s2server"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
 )
@@ -21,7 +21,7 @@ var upgrader = websocket.Upgrader{
 }
 
 func mockServer() *httptest.Server {
-	server := S2server.NewWebSocketServer()
+	server := s2server.NewWebSocketServer()
 	return httptest.NewServer(http.HandlerFunc(server.HandleConnections))
 }
 
@@ -31,7 +31,7 @@ func TestWebSocketClient(t *testing.T) {
 
 	addr := server.Listener.Addr().String()
 
-	client, err := S2client.NewWebSocketClient(addr, "/ws")
+	client, err := s2client.NewWebSocketClient(addr, "/ws")
 	assert.NoError(t, err, "Should create a new WebSocket client")
 
 	defer client.Close()
@@ -60,7 +60,7 @@ func TestWebSocketClientTimeout(t *testing.T) {
 
 	addr := server.Listener.Addr().String()
 
-	client, err := S2client.NewWebSocketClient(addr, "/ws")
+	client, err := s2client.NewWebSocketClient(addr, "/ws")
 	assert.NoError(t, err, "Should create a new WebSocket client")
 
 	defer client.Close()

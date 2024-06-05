@@ -139,7 +139,7 @@ func TestReceptionStatusSerialization(t *testing.T) {
 	status := generated.OK
 	messageID, _ := generated.NewID()
 	label := "Test Label"
-	rs, err := common.NewReceptionStatus(&status, messageID, &label)
+	rs, err := common.NewReceptionStatus(status, messageID, &label)
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -155,8 +155,8 @@ func TestReceptionStatusSerialization(t *testing.T) {
 		t.Fatalf("expected no error, got %v", err)
 	}
 
-	if *deserializedRS.Status != status {
-		t.Errorf("expected status %v, got %v", status, *deserializedRS.Status)
+	if deserializedRS.Status != status {
+		t.Errorf("expected status %v, got %v", status, deserializedRS.Status)
 	}
 }
 

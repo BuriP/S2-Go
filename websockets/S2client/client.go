@@ -1,12 +1,11 @@
-package S2client
+package s2client
 
 import (
 	"encoding/json"
+	"github.com/gorilla/websocket"
 	"log"
 	"net/url"
 	"time"
-
-	"github.com/gorilla/websocket"
 )
 
 type WebSocketClient struct {
@@ -52,6 +51,10 @@ func (client *WebSocketClient) ReceiveMessage() (string, error) {
 	client.conn.SetReadDeadline(time.Now().Add(5 * time.Second))
 	_, message, err := client.conn.ReadMessage()
 	if err != nil {
+		if websocket.IsCloseError(err, websocket.CloseNormalClosure) {
+			log.Printf("Connection closed normally")
+			return "", nil
+		}
 		return "", err
 	}
 	return string(message), nil
@@ -59,10 +62,14 @@ func (client *WebSocketClient) ReceiveMessage() (string, error) {
 
 // Close method closes the connection for a given client.
 func (client *WebSocketClient) Close() {
-	if err := client.conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")); err != nil {
+	// Send a close message to the server
+	closeMessage := websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Closing the connection")
+	if err := client.conn.WriteMessage(websocket.CloseMessage, closeMessage); err != nil {
 		log.Printf("Error sending close message: %v", err)
 	}
+	time.Sleep(1 * time.Second)
 	if err := client.conn.Close(); err != nil {
+
 		log.Printf("Error closing connection: %v", err)
 	}
 }
