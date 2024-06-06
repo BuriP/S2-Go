@@ -15,6 +15,8 @@ This is a [Go](http://golang.org/) package that implements the message validatio
 * [HandshakeResponse Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleHandshakeResponse.go)
 * [PowerForecast Example](https://github.com/BuriP/S2-Go/blob/main/examples/examplePowerForecast.go)
 * [FRBCLeakage Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleFRBCLeakageBehaviour.go)
+* [S2Client Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleS2Client.go)
+* [S2Server Example](https://github.com/BuriP/S2-Go/blob/main/examples/exampleS2Server.go)
 
 
 ### Installation
